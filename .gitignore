@@ -1,2 +1,5 @@
-.archive/_commit.ps1
+.archive/
+_commit.ps1
 _fixup.ps1
+_check*.ps1
+_check*.txt
