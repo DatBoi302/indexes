@@ -268,16 +268,16 @@ Bandcamp music auto-tagging CLI workflow, replacing a manual MusicBrainz Picard 
 - **Reusable Parts:** The Rich progress-bar + color-coded summary-table pattern is reusable in any CLI that processes a batch of items.
 
 ### Docs-CLI
-CLI documentation management tool — pulls GitHub repo docs, hosts them, and indexes them in Cursor.
+Docs CLI — pulls GitHub repo docs via Repomix and hosts them on Surge.sh for any agent or tool to read.
 
 - **Status:** ONGOING
 - **Type:** CLI / Script
-- **Tags:** #python, #repomix, #cursor
-- **Remaining:** — (status recalled from memory, not this doc — confirm/correct)
+- **Tags:** #python, #repomix, #surge
+- **Remaining:** —
 - **Issues:** —
-- **Notes:** Automates pulling GitHub repo docs via Repomix, hosting them on Surge.sh, and indexing them in Cursor IDE's "Index Docs" feature. Interactive Rich/InquirerPy interface with dashboard stats and per-repo Repomix flag management.
-- **Location(s):** DIR: [C:\SystemEdits\Scripts\Docs.bat](file:///C:/SystemEdits/Scripts/Docs.bat) | DIR: [C:\SystemEdits\Scripts\utils\Docs-CLI.py](file:///C:/SystemEdits/Scripts/utils/Docs-CLI.py) | DIR: [C:\Users\John Hudock\Config\Agent-Docs\Docs-CLI-Config.json](file:///C:/Users/John%20Hudock/Config/Agent-Docs/Docs-CLI-Config.json) | WEB: cursor-index-docs.surge.sh
-- **Reusable Parts:** The Repomix → Surge.sh hosting → Cursor Index Docs pipeline is reusable for any "pull external docs and index them locally" need. The Rich/InquirerPy dashboard shell is a reusable CLI-dashboard template.
+- **Notes:** General-purpose now — de-Cursor-ified naming and branding throughout (banner, docstring, prompts) so it reads as a tool any agent can consume, not one tied to Cursor's "Index Docs" feature specifically. Interactive Rich/InquirerPy interface: dashboard stats, per-repo Repomix flag management, a gradient Cylon-eye sweep-bar animation (ported from Print-Packages.ps1's Get-SweepBar) during fetch/build/deploy steps, and a Rename repo action for renaming an entry without rebuilding it from scratch. Status panel's Name column is now clickable too, opening the local .md file directly (Doc Link still opens the hosted copy); an Open Docs folder action jumps straight to the on-disk output dir. Also fixed a few real bugs: duplicate repo names could collide and make selection ambiguous (now guarded), Update all always reported every repo as updated even when some failed (now counts failures separately), and Sync to Surge silently attempted a deploy with no check that the Surge CLI was even installed (now checked up front).
+- **Location(s):** DIR: [C:\SystemEdits\Scripts\Docs.bat](file:///C:/SystemEdits/Scripts/Docs.bat) | DIR: [C:\SystemEdits\Scripts\utils\Docs-CLI.py](file:///C:/SystemEdits/Scripts/utils/Docs-CLI.py) | DIR: [C:\Users\John Hudock\Config\Agent-Docs\Docs-CLI-Config.json](file:///C:/Users/John%20Hudock/Config/Agent-Docs/Docs-CLI-Config.json) | WEB: https://docs-cli.surge.sh
+- **Reusable Parts:** The Repomix → Surge.sh hosting pipeline is reusable for any "pull external docs and host them somewhere fetchable" need, not tied to any one IDE. The Rich/InquirerPy dashboard shell — banner, gradient sweep-bar animation, dashboard stats table — is a reusable CLI-dashboard template on its own.
 
 ### Joplin Theme Switcher
 Custom CSS theme switcher plugin for the Joplin markdown editor.
