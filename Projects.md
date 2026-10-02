@@ -352,16 +352,16 @@ PowerShell + WPF GUI that launches multiple isolated Claude Desktop profiles (se
 - **Reusable Parts:** —
 
 ### Extension Groups
-Custom VS Code extension ("ext-groups") to organize installed extensions into searchable, taggable, toggleable, multi-membership groups, across VS Code and its forks (Cursor, Windsurf).
+VS Code extension ("ext-groups") that organizes installed extensions into searchable, taggable, multi-membership groups you can toggle on and off, from the sidebar or a wide editor tab. Works across VS Code and its forks (Cursor, Windsurf).
 
-- **Status:** IN PROGRESS
+- **Status:** COMPLETE
 - **Type:** App Plugin
-- **Tags:** #vscode
-- **Remaining:** Full build; distribution stays private (.vsix, not published to Marketplace).
-- **Issues:** —
-- **Notes:** Built because Hayden's Extension Pack Manager, Quick Extension Manager, BILALMRN's Manage Extensions, and installed-extensions-manage-status all fell short. Wants tags (e.g. Code Language) and an "unassigned" filter view.
-- **Location(s):** — (own source location not yet found; drop location once you spot the folder)
-- **Reusable Parts:** —
+- **Tags:** #vscode, #typescript, #webview, #extension
+- **Remaining:** Maintenance mode. Optional: compact list mode, keybinds, shift-select, marketplace publish.
+- **Issues:** Disabling still needs one native click in VS Code (no public API to disable another extension), so Apply enables automatically and reveals a generated "Managed Disable Set" pack to disable.
+- **Notes:** Built because Hayden's Extension Pack Manager, Quick Extension Manager, BILALMRN's Manage Extensions, and installed-extensions-manage-status all fell short. Three panes (Toggle Groups, Extensions, Manage Tags & Groups), every icon swappable via settings, 2x2 icon mosaics for groups, export/import backup. Built as v0.3.5; distributed as a local .vsix for now, MIT licensed, repository URL still a placeholder.
+- **Location(s):** DIR: [D:\Code Projects\IDE Extensions\Extension Groups\](file:///D:/Code%20Projects/IDE%20Extensions/Extension%20Groups/)
+- **Reusable Parts:** Webview UI patterns (staged-selection cards, 3-pane push/pop stack), CSS-mask icon system with per-slot settings generated from a folder (scripts/sync-icon-settings.js), host-held UI state for webview handoff.
 
 ### Shortcut Centralizer
 Portable PySide6 GUI app — single source of truth for shortcut (.lnk) definitions, pushed out to every discovered copy on the system.
