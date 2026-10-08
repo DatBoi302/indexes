@@ -22,6 +22,7 @@ Personal project tracker — project entries, descriptions, information, locatio
 | [Folder Flattener](#folder-flattener) | [No Overwrite Mover](#no-overwrite-mover) | [Sea Power - Mod Renamer](#sea-power---mod-renamer) |
 | [Start11 Start Menu Repair](#start11-start-menu-repair) | [TXT to JSON](#txt-to-json) | [E Terminal Gift](#e-terminal-gift) |
 | [Browser Launcher](#browser-launcher) | [Print-Packages](#print-packages) | [VS Code Theme Bundler](#vs-code-theme-bundler) |
+| [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | | |
 
 ## BROAD-SCOPE
 
@@ -400,16 +401,28 @@ Recurring C-drive space-optimization sweeps using WizTree scan exports and full 
 - **Reusable Parts:** —
 
 ### Game Page Enhancer
-Two Millennium (Steam Client Homebrew) plugins: native-style store/community/discussion/guide buttons for non-Steam library entries, plus a separate quick-link button panel ("Custom Link Buttons").
+One Millennium (Steam Client Homebrew) plugin that makes non-Steam library entries feel native: a Store / DLC / Community / Points Shop / Discussions / Guides / Workshop / Market / Support row, an About panel (opened from a native-style info button), News & Updates, achievements read from Goldberg / GSE / CODEX saves, and a quick Steam-match editor with live game search. It also adds a themed Links box (SteamDB, PCGamingWiki, Nexus Mods, CS.RIN.RU, plus any links of my own) to every game's page, and keeps the Notes hyperlink fix.
 
-- **Status:** IN PROGRESS
+- **Status:** NEARING COMPLETION
 - **Type:** App Plugin
-- **Tags:** #steam, #millennium, #lua
-- **Remaining:** AppID-guessing's Lua `http` module dependency is unconfirmed; "Custom Link Buttons" panel built but not yet live-tested.
+- **Tags:** #steam, #millennium, #lua, #typescript, #react
+- **Remaining:** Ongoing polish from live testing; possible opt-in SteamGridDB-style artwork helper (must never touch existing custom art); more built-in link presets and verifying their URL formats.
 - **Issues:** —
-- **Notes:** game-page-enhancer confirmed live and theme-compatible. notes-enhancer/"Custom Link Buttons" started as links injected into the Notes preview, but that made editing a note nearly impossible (the preview doubles as the click-to-edit target) — reverted and rebuilt as its own DOM-injected button panel with 3 built-in presets (SteamDB, PCGamingWiki, Nexus Mods). Internal plugin id (`dev.hudock.notesenhancer`) kept as-is to avoid orphaning installed data despite the user-facing rename. Scaffolded from SteamClientHomebrew/PluginTemplate.
+- **Notes:** Started as two plugins (this and a "Custom Link Buttons" one, `dev.hudock.notesenhancer`) — merged into one install; the old folder is retired (`plugins\notes-enhancer\RETIRED.md`) and that plugin must stay disabled. Matches are guessed from the Steam store (≈99% right), with a type-ahead search, paste-a-link and manual AppID for the rest. Everything is verified live over CDP against the running client. Hard-won findings (RPC bridge number-parsing, `ShowURL` vs `window.open`, theming rules, layout traps) live in `Docs\Millennium-Plugin-Dev-Notes.md`; the workflow is captured in the Millennium Plugin Dev Skill below. Scaffolded from SteamClientHomebrew/PluginTemplate.
 - **Location(s):** DIR: [D:\Code Projects\Steam Plugins\Game Page Enhancer\](file:///D:/Code%20Projects/Steam%20Plugins/Game%20Page%20Enhancer/)
-- **Reusable Parts:** The DOM-injection pattern used for both the button row and the link-button panel is reusable for any future Millennium plugin needing a native-style injected UI section.
+- **Reusable Parts:** The DOM-injection toolkit (`dom.ts`: class-bag resolution, native-element hosts, ordered mounts), the Lua store / JSON / VDF / http-backed data modules, the CDP live-verification workflow, and the settings-page UI kit — all reusable for any future Millennium plugin.
+
+### Millennium Plugin Dev Skill
+Claude skill (`millennium-plugin-dev`) that captures the workflow for building, extending and debugging Millennium plugins — feedback file to verified, committed change — with a bundled CDP evaluator, Steam-bundle grep, isolated Lua syntax checker, and a reference set of verified gotchas.
+
+- **Status:** COMPLETE
+- **Type:** Library / Asset Collection
+- **Tags:** #claude-skill, #steam, #millennium, #python
+- **Remaining:** Run the full with/without-skill eval loop on the three prepared prompts and tune the description's triggering; fold in new gotchas after each plugin round.
+- **Issues:** —
+- **Notes:** Written from the Game Page Enhancer rounds. Packaged copy at `C:\Users\John Hudock\.agents\.skill\millennium-plugin-dev.skill`; linked into `~\.claude\skills`. The bundled scripts were exercised against the live client (CDP, bundle grep, Lua check).
+- **Location(s):** DIR: [C:\Users\John Hudock\.agents\skills\millennium-plugin-dev\](file:///C:/Users/John%20Hudock/.agents/skills/millennium-plugin-dev/)
+- **Reusable Parts:** `scripts/cdp.py` (evaluate JS in any CEF page over DevTools), `scripts/grep_bundle.py` (windowed grep for giant minified lines), `scripts/lua_check.py` (isolated-venv Lua syntax check).
 
 ### listnr
 Modern, modular terminal-based music player written in Go.
