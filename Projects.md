@@ -22,7 +22,7 @@ Personal project tracker — project entries, descriptions, information, locatio
 | [Folder Flattener](#folder-flattener) | [No Overwrite Mover](#no-overwrite-mover) | [Sea Power - Mod Renamer](#sea-power---mod-renamer) |
 | [Start11 Start Menu Repair](#start11-start-menu-repair) | [TXT to JSON](#txt-to-json) | [E Terminal Gift](#e-terminal-gift) |
 | [Browser Launcher](#browser-launcher) | [Print-Packages](#print-packages) | [VS Code Theme Bundler](#vs-code-theme-bundler) |
-| [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | | |
+| [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | [Styling Assets Previewer](#styling-assets-previewer) | |
 
 ## BROAD-SCOPE
 
@@ -672,6 +672,18 @@ Python tool that bundles multiple installed theme extensions into one, to elimin
 - **Notes:** Working folders: Pre_Bundle_Sources, Staging_Area, Custom_Themes, Builds, Cache_Backups.
 - **Location(s):** DIR: [C:\Users\John Hudock\.vscode\Theme_Bundler\](file:///C:/Users/John%20Hudock/.vscode/Theme_Bundler/)
 - **Reusable Parts:** —
+
+### Styling Assets Previewer
+One window over the styling library: every asset on a wall and in a browser, with a preview built per asset type.
+
+- **Status:** IN PROGRESS
+- **Type:** GUI App
+- **Tags:** #tauri, #react, #python, #windows
+- **Remaining:** Phase 1 gallery — wall, browse, detail, compare, open folder, copy path. Preview modules, drag-out, and apply wait on the phase 1 gate.
+- **Issues:** —
+- **Notes:** Reads `D:\Styling`. Writes `D:\Styling\_Meta\previewer\index.json` and a thumbnail cache under `%LOCALAPPDATA%\StylingPreviewer`. Does not edit asset folders. Plan in the project Docs folder.
+- **Location(s):** DIR: [D:\Code Projects\Styling Previewer\](file:///D:/Code%20Projects/Styling%20Previewer/) | DIR: [D:\Styling\](file:///D:/Styling/)
+- **Reusable Parts:** The index builder (manifest + plan + disk into one JSON). Shared HTML preview templates once the builder phase starts.
 
 ---
 
