@@ -22,7 +22,7 @@ Personal project tracker — project entries, descriptions, information, locatio
 | [Folder Flattener](#folder-flattener) | [No Overwrite Mover](#no-overwrite-mover) | [Sea Power - Mod Renamer](#sea-power---mod-renamer) |
 | [Start11 Start Menu Repair](#start11-start-menu-repair) | [TXT to JSON](#txt-to-json) | [E Terminal Gift](#e-terminal-gift) |
 | [Browser Launcher](#browser-launcher) | [Print-Packages](#print-packages) | [VS Code Theme Bundler](#vs-code-theme-bundler) |
-| [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | [Styling Assets Previewer](#styling-assets-previewer) | |
+| [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | [Styling Assets Previewer](#styling-assets-previewer) | [PATH Tidy](#path-tidy) |
 
 ## BROAD-SCOPE
 
@@ -269,16 +269,16 @@ Bandcamp music auto-tagging CLI workflow, replacing a manual MusicBrainz Picard 
 - **Reusable Parts:** The Rich progress-bar + color-coded summary-table pattern is reusable in any CLI that processes a batch of items.
 
 ### Docs-CLI
-Docs CLI — pulls GitHub repo docs via Repomix and hosts them on Surge.sh for any agent or tool to read.
+Docs CLI — builds docs for any agent or tool to read, from GitHub repos (via Repomix) and crawled documentation websites, and hosts them on Surge.sh.
 
 - **Status:** ONGOING
 - **Type:** CLI / Script
-- **Tags:** #python, #repomix, #surge
+- **Tags:** #python, #repomix, #surge, #docrawl
 - **Remaining:** —
 - **Issues:** —
-- **Notes:** General-purpose now — de-Cursor-ified naming and branding throughout (banner, docstring, prompts) so it reads as a tool any agent can consume, not one tied to Cursor's "Index Docs" feature specifically. Interactive Rich/InquirerPy interface: dashboard stats, per-repo Repomix flag management, a gradient Cylon-eye sweep-bar animation (ported from Print-Packages.ps1's Get-SweepBar) during fetch/build/deploy steps, and a Rename repo action for renaming an entry without rebuilding it from scratch. Status panel's Name column is now clickable too, opening the local .md file directly (Doc Link still opens the hosted copy); an Open Docs folder action jumps straight to the on-disk output dir. Also fixed a few real bugs: duplicate repo names could collide and make selection ambiguous (now guarded), Update all always reported every repo as updated even when some failed (now counts failures separately), and Sync to Surge silently attempted a deploy with no check that the Surge CLI was even installed (now checked up front).
-- **Location(s):** DIR: [C:\SystemEdits\Scripts\Docs.bat](file:///C:/SystemEdits/Scripts/Docs.bat) | DIR: [C:\SystemEdits\Scripts\utils\Docs-CLI.py](file:///C:/SystemEdits/Scripts/utils/Docs-CLI.py) | DIR: [C:\Users\John Hudock\Config\Agent-Docs\Docs-CLI-Config.json](file:///C:/Users/John%20Hudock/Config/Agent-Docs/Docs-CLI-Config.json) | WEB: https://docs-cli.surge.sh
-- **Reusable Parts:** The Repomix → Surge.sh hosting pipeline is reusable for any "pull external docs and host them somewhere fetchable" need, not tied to any one IDE. The Rich/InquirerPy dashboard shell — banner, gradient sweep-bar animation, dashboard stats table — is a reusable CLI-dashboard template on its own.
+- **Notes:** General-purpose now — de-Cursor-ified naming and branding throughout (banner, docstring, prompts) so it reads as a tool any agent can consume, not one tied to Cursor's "Index Docs" feature specifically. Interactive Rich/InquirerPy interface: dashboard stats, per-repo Repomix flag management, a gradient Cylon-eye sweep-bar animation (ported from Print-Packages.ps1's Get-SweepBar) during fetch/build/deploy steps, and a Rename repo action for renaming an entry without rebuilding it from scratch. Status panel's Name column is now clickable too, opening the local .md file directly (Doc Link still opens the hosted copy); an Open Docs folder action jumps straight to the on-disk output dir. Also fixed a few real bugs: duplicate repo names could collide and make selection ambiguous (now guarded), Update all always reported every repo as updated even when some failed (now counts failures separately), and Sync to Surge silently attempted a deploy with no check that the Surge CLI was even installed (now checked up front). Websites are now a second source type alongside GitHub repos: Add source offers a crawl (docrawl) that writes a per-page folder in Docs\ for agents reading locally, plus one merged .md (table of contents, per-page titles, duplicate pages dropped) that Surge hosts — one crawl, both outputs. Checks for a site's llms-full.txt first. Also added a generated Docs\_INDEX.md for agents to read first, 30-day stale tracking with an Update stale action, exclude URL filters, unattended flags (--update-stale, --sync, --index, --status) that work through the Docs shim, size and token estimates in Status, and a grouped menu. Hardened too: subprocesses can no longer hang on npx or Surge prompts (stdin closed, timeouts), config saves are atomic with a .bak, adding or renaming a source can't overwrite manually added docs, and a failed re-crawl keeps the previous copy. Crawling reads static HTML only, so JS-rendered sites come back empty. Also unattended add/update/remove (--add-web, --update, --remove) so an agent can manage sources without the menu, inline SVG and base64 images are stripped from crawled pages (Textual's pages were 94% SVG screenshots), and an overlong PATH is de-duplicated at startup since it broke cmd-spawned npx. Used it to replace hand-ripped repo dumps with real crawls of the Claude Code, Claude Platform, MCP, Dear PyGui, VS Code, Docker, and Textual docs. Later added unattended GitHub adds (--add-github with --no-translations and --exclude), a Trim source action plus --analyze/--trim (section-size breakdown, cleanup profiles, drop sections without re-crawling), and a sitemap top-up that recovers pages the crawler missed. A final pass replaced every remaining hand-bundled doc (Nilesoft Shell, ECC, Herdr, MDN CSS, Chrome DevTools / Extensions / Lighthouse, Context Mode) and rebuilt the repo bundles (JCodeMunch, Chrome DevTools MCP, Codesight, ReShell): 20 sources, about 83 MB.
+- **Location(s):** DIR: [C:\SystemEdits\Scripts\Docs.bat](file:///C:/SystemEdits/Scripts/Docs.bat) | DIR: [C:\SystemEdits\Scripts\utils\Docs-CLI.py](file:///C:/SystemEdits/Scripts/utils/Docs-CLI.py) | DIR: [C:\Users\John Hudock\Config\Agent-Docs\Docs-CLI-Config.json](file:///C:/Users/John%20Hudock/Config/Agent-Docs/Docs-CLI-Config.json) | DIR: [C:\Users\John Hudock\Config\Agent-Docs\Docs\](file:///C:/Users/John%20Hudock/Config/Agent-Docs/Docs/) | WEB: https://docs-cli.surge.sh
+- **Reusable Parts:** The Repomix → Surge.sh hosting pipeline is reusable for any "pull external docs and host them somewhere fetchable" need, not tied to any one IDE. The Rich/InquirerPy dashboard shell — banner, gradient sweep-bar animation, dashboard stats table — is a reusable CLI-dashboard template on its own. The crawl → per-page folder + merged-file pattern is reusable for turning any documentation site into local, agent-readable Markdown.
 
 ### Joplin Theme Switcher
 Custom CSS theme switcher plugin for the Joplin markdown editor.
@@ -684,6 +684,18 @@ One window over the styling library: every asset on a wall and in a browser, wit
 - **Notes:** Reads `D:\Styling`. Writes `D:\Styling\_Meta\previewer\index.json` and a thumbnail cache under `%LOCALAPPDATA%\StylingPreviewer`. Does not edit asset folders. Plan in the project Docs folder.
 - **Location(s):** DIR: [D:\Code Projects\Styling Previewer\](file:///D:/Code%20Projects/Styling%20Previewer/) | DIR: [D:\Styling\](file:///D:/Styling/)
 - **Reusable Parts:** The index builder (manifest + plan + disk into one JSON). Shared HTML preview templates once the builder phase starts.
+
+### PATH Tidy
+Python tool that cleans the Windows User and Machine PATH: drops duplicates, dead directories, and User entries the Machine PATH already has, without changing what any command resolves to.
+
+- **Status:** COMPLETE
+- **Type:** CLI / Script
+- **Tags:** #python, #windows, #registry
+- **Remaining:** —
+- **Issues:** —
+- **Notes:** Dry run by default; `--apply` saves a JSON backup first, writes both scopes as REG_EXPAND_SZ, and broadcasts the change; `--restore` puts a backup back. Dead entries are only removed when their drive is mounted, so entries on offline drives and with unset variables are kept. A self-check refuses to write if any live directory would vanish or the search order would change. First run took the registry PATH from 5,655 to 3,337 characters (Machine 50 → 37 entries, User 96 → 45), and every one of 2,210 executables still resolved to the same file afterwards.
+- **Location(s):** DIR: [C:\SystemEdits\Scripts\utils\path_tidy.py](file:///C:/SystemEdits/Scripts/utils/path_tidy.py)
+- **Reusable Parts:** The plan, self-verify, then write split (a pure planner whose output is checked against the old state before anything is written) is reusable for any tool that edits a system setting.
 
 ---
 
