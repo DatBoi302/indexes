@@ -23,7 +23,7 @@ Personal project tracker — project entries, descriptions, information, locatio
 | [Start11 Start Menu Repair](#start11-start-menu-repair) | [TXT to JSON](#txt-to-json) | [E Terminal Gift](#e-terminal-gift) |
 | [Browser Launcher](#browser-launcher) | [Print-Packages](#print-packages) | [VS Code Theme Bundler](#vs-code-theme-bundler) |
 | [Millennium Plugin Dev Skill](#millennium-plugin-dev-skill) | [Styling Assets Previewer](#styling-assets-previewer) | [PATH Tidy](#path-tidy) |
-| [Skills Curator](#skills-curator) | | |
+| [Skills Curator](#skills-curator) | [ShellKit](#shellkit) | |
 
 ## BROAD-SCOPE
 
@@ -710,6 +710,18 @@ Native desktop app (PySide6) that equalizes AI agent skills across every agent: 
 - **Location(s):** DIR: [C:\SystemEdits\Scripts\utils\Skills-Audit\](file:///C:/SystemEdits/Scripts/utils/Skills-Audit/) | DIR: [C:\Users\John Hudock\.agents\skills\](file:///C:/Users/John%20Hudock/.agents/skills/) | DIR: [C:\Users\John Hudock\.agents\.skill\](file:///C:/Users/John%20Hudock/.agents/.skill/)
 - **Reusable Parts:** `skills_core.py` — a dry-run-first plan / execute engine with archive-never-delete safety, reusable for any tool that syncs folders through junctions. The family-grouped, tri-state checkbox tree with filter-aware bulk select is a reusable PySide6 pattern.
 
+### ShellKit
+Modular PowerShell 7 profile driven by JSON settings, with a mouse-friendly Textual settings TUI, one multi-theme engine for every terminal tool, and a repeatable sync that carries the same setup over to CMD (Clink) and Git Bash. Replaces my old 1,173-line monolithic profile.
+
+- **Status:** NEARING COMPLETION
+- **Type:** CLI / Script
+- **Tags:** #powershell, #python, #textual, #oh-my-posh, #clink, #bash, #windows-terminal
+- **Remaining:** Hands-on test of the pwsh, Git Bash, and CMD tabs; decide whether to turn on OMP streaming and the Claude Code statusline (`sk claude-statusline --install`).
+- **Issues:** PowerShell's CommandNotFound module makes `exit` hang ~12 s (kept, deferred, flagged by `sk doctor`). Clink AutoRun adds ~44 ms to every `cmd /c`.
+- **Notes:** `$PROFILE` is now a stub that dots in `ShellKit\pwsh\ShellKit.ps1`. Startup went from ~2.4 s to ~1.0 s median (bare pwsh is ~0.3 s): settings and runtime compile to .ps1 hashtable literals (no ConvertFrom-Json), feature files bundle into one cached script, tool lookups and init scripts are cached against PATH and exe mtimes, and heavy bits (modules, completers, predictor, git delta) load on idle. Context rules decide what each shell gets - agents (Claude Code, Cursor, Codex, Gemini, Copilot, and ~20 more env markers) get env-only, VS Code / JetBrains / SSH / nested / admin can each take their own prompt or mode, and `SHELLKIT_MODE` / `SHELLKIT_DISABLE` override it. Themes (gruvbox, catppuccin-mocha, tokyonight, nord, dracula, everforest, rose-pine) generate configs for OMP, PSReadLine, PSStyle, fzf, eza, bat, bottom, glow, lazygit, atuin, broot, yazi, fastfetch, and Windows Terminal schemes - each tool can inherit, use its own theme, or be off. OMP prompt is generated from settings (plain / powerline / diamond, per-segment toggles, transient, valid/error line, tooltips, maps, cursor style, async/streaming) and also covers Clink and Bash. Animated figlet banner (sweep, fade, reveal, typewriter, glimmer, TTE, rustyrain, globe). Also fixed old-profile bugs: `ls`/eza function shadowed by the built-in alias, zoxide's hook dropped by OMP, eza theme never applied, Atuin hijacking Up Arrow (now Ctrl+R / Alt+R only), gsudoModule never imported, Warp's pwsh.ps1 shadowing pwsh. `sk` is the command hub (help, doctor, theme, set, apply, sync, bench, edit, reload); `sk edit` opens the TUI. Old profile, .bashrc, and tool configs backed up under `ShellKit\backups\`.
+- **Location(s):** DIR: [C:\Users\John Hudock\Config\ShellKit\](file:///C:/Users/John%20Hudock/Config/ShellKit/) | DIR: [C:\Users\John Hudock\Documents\PowerShell\Microsoft.PowerShell_profile.ps1](file:///C:/Users/John%20Hudock/Documents/PowerShell/Microsoft.PowerShell_profile.ps1)
+- **Reusable Parts:** The init-cache pattern (cache a tool's generated init script keyed to its real exe mtime, following scoop shims) and OnIdle deferral are drop-in speedups for any pwsh profile. The context rules engine (env/parent/elevation/redirect matching to pick a mode) fits any shell config. The palette engine - one 16-role palette mapped onto many tools, plus recoloring existing themes by nearest-role match - is reusable for any multi-app theming job.
+
 ---
 
 ## Comprehensive / Broad-Scope Projects
@@ -751,7 +763,7 @@ Establish a safe way to back up current system settings, then overhaul the OS vi
 Build real command-line fluency and a more capable, better-documented terminal setup.
 
 - Learn to use the terminal more effectively.
-- Find a way to easily surface available commands.
+- Find a way to easily surface available commands. (ShellKit's `sk help` / `Get-MyCommands` covers my own; see ShellKit.)
 - Customize Terminal (currently uses Windows Terminal with BTOP++ installed).
 - Learn how package installs work — install locations, why certain paths are required, etc.
 
